@@ -4,7 +4,6 @@
  set tabstop=4
  set shiftwidth=4
  set expandtab
- set colorcolumn=120
  set nowrap
 
  syntax enable
@@ -24,8 +23,8 @@
  "
  NeoBundle 'nanotech/jellybeans.vim'
  NeoBundle 'mikewest/vimroom'
- NeoBundle 'scrooloose/nerdtree'
  NeoBundle 'jsbeautify' 
+ NeoBundle 'reedes/vim-colors-pencil'
 
  filetype plugin indent on     " Required!
  "
@@ -37,5 +36,4 @@
  " Installation check.
  NeoBundleCheck
 
- map <C-n> :NERDTreeToggle<CR>
  nnoremap <silent> <leader>ff :call g:Jsbeautify()<cr>
