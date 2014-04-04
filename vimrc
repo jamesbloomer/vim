@@ -25,6 +25,8 @@
  NeoBundle 'mikewest/vimroom'
  NeoBundle 'jsbeautify' 
  NeoBundle 'reedes/vim-colors-pencil'
+ NeoBundle 'reedes/vim-wordy'
+ NeoBundle 'reedes/vim-pencil'
 
  filetype plugin indent on     " Required!
  "
