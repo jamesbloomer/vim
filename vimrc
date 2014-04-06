@@ -26,7 +26,7 @@
  NeoBundle 'jsbeautify' 
  NeoBundle 'reedes/vim-colors-pencil'
  NeoBundle 'reedes/vim-wordy'
- NeoBundle 'reedes/vim-pencil'
+ NeoBundle 'reedes/vim-lexical'
 
  filetype plugin indent on     " Required!
  "
@@ -38,4 +38,19 @@
  " Installation check.
  NeoBundleCheck
 
+ "vim-lexical settings
+ let g:lexical#spelllang = ['en_gb',]
+ let g:lexical#thesaurus = ['~/.vim/thesaurus/mthesaur.txt',]
+ let g:lexical#spell_key = '<leader>s'
+ let g:lexical#thesaurus_key = '<leader>t'
+ let g:lexical#dictionary_key = '<leader>k'
+
+ augroup lexical
+     autocmd!
+     autocmd FileType markdown call lexical#init()
+     autocmd FileType textile call lexical#init()
+     autocmd FileType text call lexical#init()
+ augroup END
+
+ " Key mappings
  nnoremap <silent> <leader>ff :call g:Jsbeautify()<cr>
