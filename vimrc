@@ -24,9 +24,16 @@
  NeoBundle 'nanotech/jellybeans.vim'
  NeoBundle 'mikewest/vimroom'
  NeoBundle 'jsbeautify' 
+ NeoBundle 'reedes/vim-pencil'
  NeoBundle 'reedes/vim-colors-pencil'
  NeoBundle 'reedes/vim-wordy'
  NeoBundle 'reedes/vim-lexical'
+ NeoBundle 'fatih/vim-go'
+ NeoBundle 'plasticboy/vim-markdown'
+ NeoBundle 'bling/vim-airline'
+ NeoBundle 'edkolev/tmuxline.vim'
+ NeoBundle 'junegunn/goyo.vim'
+ NeoBundle 'junegunn/limelight.vim'
 
  filetype plugin indent on     " Required!
  "
@@ -52,5 +59,26 @@
      autocmd FileType text call lexical#init()
  augroup END
 
+ " Markdown
+ let g:vim_markdown_frontmatter=1
+ let g:vim_markdown_folding_disabled=1
+ 
  " Key mappings
  nnoremap <silent> <leader>ff :call g:Jsbeautify()<cr>
+
+ " airline
+ let g:airline_powerline_fonts=1
+ set laststatus=2
+
+ " Limelight
+ " Color name (:help cterm-colors) or ANSI code
+ let g:limelight_conceal_ctermfg = 'gray'
+ let g:limelight_conceal_ctermfg = 240
+ 
+ " Color name (:help gui-colors) or RGB color
+ let g:limelight_conceal_guifg = 'DarkGray'
+ let g:limelight_conceal_guifg = '#777777'
+
+ " Limelight / Goyo
+autocmd User GoyoEnter Limelight
+autocmd User GoyoLeave Limelight! 
