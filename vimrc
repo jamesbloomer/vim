@@ -4,6 +4,7 @@ set tabstop=2
 set shiftwidth=2
 set nowrap
 set colorcolumn=80
+set autowrite
 
 syntax enable
 set t_Co=256
@@ -43,6 +44,10 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'Konfekt/FastFold'
 NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
+NeoBundle 'powerman/vim-plugin-AnsiEsc'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'Quramy/tsuquyomi'
+NeoBundle 'Shougo/vimproc.vim'
 
 call neobundle#end()
 
@@ -70,6 +75,15 @@ au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
 
 " set foldmethod=syntax
 set foldnestmax=10
@@ -91,6 +105,9 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_command = "goimports"
+let g:go_list_type = "quickfix"
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
 
 " set initial netrw style
 let g:netrw_liststyle=3
