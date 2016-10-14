@@ -10,40 +10,32 @@
  set t_Co=256
  colorscheme jellybeans
 
- if has('vim_starting')
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
- endif
+ " set the runtime path to include Vundle and initialize
+ set rtp+=~/.vim/bundle/Vundle.vim
+ call vundle#begin()
 
- call neobundle#rc(expand('~/.vim/bundle/'))
+ " let Vundle manage Vundle, required
+ Plugin 'VundleVim/Vundle.vim'
 
- " Let NeoBundle manage NeoBundle
- NeoBundleFetch 'Shougo/neobundle.vim'
-
- " My Bundles here:
+ " Plugins
  "
- NeoBundle 'nanotech/jellybeans.vim'
- NeoBundle 'mikewest/vimroom'
- NeoBundle 'jsbeautify' 
- NeoBundle 'reedes/vim-pencil'
- NeoBundle 'reedes/vim-colors-pencil'
- NeoBundle 'reedes/vim-wordy'
- NeoBundle 'reedes/vim-lexical'
- NeoBundle 'fatih/vim-go'
- NeoBundle 'plasticboy/vim-markdown'
- NeoBundle 'bling/vim-airline'
- NeoBundle 'edkolev/tmuxline.vim'
- NeoBundle 'junegunn/goyo.vim'
- NeoBundle 'junegunn/limelight.vim'
+ Plugin 'nanotech/jellybeans.vim'
+ Plugin 'mikewest/vimroom'
+ Plugin 'jsbeautify' 
+ Plugin 'reedes/vim-pencil'
+ Plugin 'reedes/vim-colors-pencil'
+ Plugin 'reedes/vim-wordy'
+ Plugin 'reedes/vim-lexical'
+ Plugin 'fatih/vim-go'
+ Plugin 'plasticboy/vim-markdown'
+ Plugin 'bling/vim-airline'
+ Plugin 'edkolev/tmuxline.vim'
+ Plugin 'junegunn/goyo.vim'
+ Plugin 'junegunn/limelight.vim'
 
- filetype plugin indent on     " Required!
- "
- " Brief help
- " :NeoBundleList          - list configured bundles
- " :NeoBundleInstall(!)    - install(update) bundles
- " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-
- " Installation check.
- NeoBundleCheck
+ " All of your Plugins must be added before the following line
+ call vundle#end()            " required
+ filetype plugin indent on    " required
 
  "vim-lexical settings
  let g:lexical#spelllang = ['en_gb',]
