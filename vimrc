@@ -24,7 +24,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
-Plugin "ekalinin/Dockerfile.vim"
+Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'edkolev/tmuxline.vim'
@@ -89,7 +89,6 @@ nnoremap <leader>a :cclose<CR>
 set foldnestmax=10
 set nofoldenable
 set foldlevel=0
-
 
 " airline
 set laststatus=2
