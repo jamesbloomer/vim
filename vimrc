@@ -25,7 +25,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'tpope/vim-fugitive'
@@ -45,7 +45,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
-Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Prose
 " Plugin 'mikewest/vimroom'
@@ -62,6 +62,9 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 colorscheme jellybeans
+
+" Typescript fix
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 
 " golang vim-go bindings
 au FileType go nmap <leader>r <Plug>(go-run)
@@ -96,7 +99,7 @@ let g:airline_powerline_fonts = 1
 
 " syntastic
 let g:syntastic_ruby_checkers          = ['rubocop', 'mri']
-let g:syntastic_ruby_rubocop_exec      = '/opt/chefdk/bin/rubocop'
+let g:syntastic_ruby_rubocop_exec      = '/usr/local/bin/rubocop'
 let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
 " vim-go options
