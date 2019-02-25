@@ -1,75 +1,89 @@
-set number
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set nowrap
-set colorcolumn=80
-set autowrite
+" ------------- SETTINGS --------------
 
-syntax enable
-set t_Co=256
+set nocompatible
+filetype plugin indent on  " load filetype-specific indent files
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set tabstop=2 	      	" number of visual spaces per tab
+set softtabstop=2 	    " number of spaces in tab when editing
+set shiftwidth=2   	    " how many columns text is indented with the reindent operations
+set expandtab	        	" tabs are spaces
+set number              " show line numbers
+set showcmd             " show command in bottom bar
+set cursorline          " highlight current line
+set wildmenu            " visual autocomplete for command menu
+set lazyredraw          " redraw only when we need to.
+set showmatch           " highlight matching [{()}]
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+set nowrap		          " don't wrap lines
+set autowrite		        " save on buffer switch
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+set foldmethod=syntax   " set the fold based method
+set laststatus=2	      " display the status line always
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+syntax enable		        " enable syntax processing
+set t_Co=256            " ? TODO
 
-" My plugins here:
-"
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'kien/ctrlp.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'fatih/vim-go'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'mtth/scratch.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-obsession'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'derekwyatt/vim-scala'
-Plugin 'klen/python-mode'
-Plugin 'StanAngeloff/php.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'Konfekt/FastFold'
-Plugin 'xolox/vim-easytags'
-Plugin 'xolox/vim-misc'
-Plugin 'powerman/vim-plugin-AnsiEsc'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'Quramy/tsuquyomi'
-Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
+" Auto completion
+set completeopt+=menuone " Mandatory for mucomplete
+inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+set completeopt+=noselect
+set completeopt+=noinsert
+set shortmess+=c        " Shut off completion messages
+set belloff+=ctrlg      " If Vim beeps during completion
 
-" Prose
-" Plugin 'mikewest/vimroom'
-" Plugin 'jsbeautify' 
-" Plugin 'reedes/vim-pencil'
-" Plugin 'reedes/vim-colors-pencil'
-" Plugin 'reedes/vim-wordy'
-" Plugin 'reedes/vim-lexical'
-" Plugin 'junegunn/goyo.vim'
-" Plugin 'junegunn/limelight.vim'
+" colours
+colorscheme gruvbox 	  " the default colour scheme
+set background=dark 	  " use the dark background variant of the colur scheme
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" ----------- OPTIONS --------------
 
-colorscheme jellybeans
+" airline
+let g:airline_powerline_fonts = 1
 
-" Typescript fix
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+" Highlight columns past 80, they're too long!
+let &colorcolumn=join(range(81,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn="80,".join(range(120,999),",")
+
+" ale options
+let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'go build', 'gosimple']}
+let g:ale_go_gometalinter_options = "--fast"
+
+" vim-go options
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_chan_whitespace_error = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_trailing_whitespace_error = 1
+
+" set initial netrw style
+let g:netrw_liststyle=3
+
+" enable automatic completion at startup
+let g:mucomplete#enable_auto_at_startup = 1
+
+" ------------- MAPPINGS --------------
+
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
 
 " golang vim-go bindings
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>t <Plug>(go-test-func)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 au FileType go nmap <Leader>s <Plug>(go-implements)o
@@ -84,128 +98,11 @@ au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
-
-" set foldmethod=syntax
-set foldnestmax=10
-set nofoldenable
-set foldlevel=0
-
-" airline
-set laststatus=2
-let g:airline_powerline_fonts = 1
-
-" syntastic
-let g:syntastic_ruby_checkers          = ['rubocop', 'mri']
-let g:syntastic_ruby_rubocop_exec      = '/usr/local/bin/rubocop'
-let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
-
-" vim-go options
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_fmt_command = "goimports"
-let g:go_list_type = "quickfix"
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-
-" set initial netrw style
-let g:netrw_liststyle=3
-
-" Sometimes when using both vim-go and syntastic Vim will start lagging while
-" saving and opening files. The following fixes this:
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-""" neocomplete
-let g:neocomplete#enable_at_startup = 1
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-" Python-mode
-" Activate rope
-" Keys:
-" K             Show python docs
-" <Ctrl-Space>  Rope autocomplete
-" <Ctrl-c>g     Rope goto definition
-" <Ctrl-c>d     Rope show documentation
-" <Ctrl-c>f     Rope find occurrences
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 1
-
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-"Linting
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
-" Auto check on save
-let g:pymode_lint_write = 1
-
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
-
 " Tagbar toggle
 nmap <F8> :TagbarToggle<CR>
 
-" Prose
-" "vim-lexical settings
-" let g:lexical#spelllang = ['en_gb',]
-" let g:lexical#thesaurus = ['~/.vim/thesaurus/mthesaur.txt',]
-" let g:lexical#spell_key = '<leader>s'
-" let g:lexical#thesaurus_key = '<leader>t'
-" let g:lexical#dictionary_key = '<leader>k'
-"
-" augroup lexical
-"     autocmd!
-"     autocmd FileType markdown call lexical#init()
-"     autocmd FileType textile call lexical#init()
-"     autocmd FileType text call lexical#init()
-" augroup END
-"
-" " Markdown
-" let g:vim_markdown_frontmatter=1
-" let g:vim_markdown_folding_disabled=1
-" 
-" " Limelight
-" " Color name (:help cterm-colors) or ANSI code
-" let g:limelight_conceal_ctermfg = 'gray'
-" let g:limelight_conceal_ctermfg = 240
-" 
-" " Color name (:help gui-colors) or RGB color
-" let g:limelight_conceal_guifg = 'DarkGray'
-" let g:limelight_conceal_guifg = '#777777'
-"
-" " Limelight / Goyo
-" autocmd User GoyoEnter Limelight
-" autocmd User GoyoLeave Limelight! 
+" Auto reload vimrc
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
